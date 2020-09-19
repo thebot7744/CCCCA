@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+import sqlalchemy.exc
 import logging
 
 app = Flask(__name__)
@@ -22,12 +23,17 @@ def signup():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
     password = request.form.get("password")
-    logging.error('%s, %s', username, firstname)
-    
-    db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password) VALUES (:email, :username, :firstname, :lastname, :password)",
-     {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password})
+
+    try: 
+        db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password) VALUES (:email, :username, :firstname, :lastname, :password)",
+        {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password})
+    except sqlalchemy.exc.IntegrityError:
+        return "error"
     db.commit()
-    return "aaa"
+    return render_template("success.html")
+
+
+        
 
 
 
