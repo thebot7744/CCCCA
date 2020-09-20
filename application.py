@@ -8,7 +8,7 @@ import logging
 
 app = Flask(__name__)
 
-engine = create_engine("sqlite:///accountinfo.db") #put sqlite database here sqlite:///{file name}
+engine = create_engine("sqlite:////Users/christopherwang/PycharmProjects/CCCCA/CCCCA/accountinfo.db") #put sqlite database here sqlite:///{file name}
 db = scoped_session(sessionmaker(bind=engine))
 
 @app.route('/')
@@ -23,12 +23,16 @@ def signup():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
     password = request.form.get("password")
+    pswdconfirm = request.form.get('passwordconfirm')
+
+    if password != pswdconfirm:
+        return render_template('error.html', message='Please make sure to confirm your password.')
 
     try: 
         db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password) VALUES (:email, :username, :firstname, :lastname, :password)",
         {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password})
     except sqlalchemy.exc.IntegrityError:
-        return "error"
+        return render_template('error.html', message='Your email address is already in use.')
     db.commit()
     return render_template("success.html")
 
