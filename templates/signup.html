@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Sign Up</title>
+</head>
+<body>
+
+    <form action = "{{ url_for('signupComplete') }}" method="POST">
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <h6 id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</h6>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="username">Username</label>
+                    <input type="text" name="username"class="form-control" placeholder="Username" aria-describedby="nameuser">
+                    <h6 id="nameuser" class="form-text text-muted">The name you're known by.</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="1name">First Name</label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                </div>
+                <div class="form-group col-6">
+                    <label for="2name">Last Name</label>
+                    <input type="text" class="form-control" name="lastname"placeholder="Last Name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="ccccapassword">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password" aria-describedby="safepswd">
+                    <h6 id="safepswd" class="form-text text-muted">Make sure this password is safe!</h6>
+                </div>
+                <div class="form-group col-6">
+                    <label for="ccccapasswordconfirm">Password</label>
+                    <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password" aria-describedby="safepswd">
+                    <h6 id="confirmpswd" class="form-text text-muted">Confirm your Password</h6>
+                </div>
+                <style>
+                    label {
+                    color:blue;
+                    }
+                    body {
+                    background-color:#a4e3e2;
+                    }
+                    .form-text text-muted {
+                    color:blue;
+                    }
+                    h6 {
+                    color:blue;
+                    }
+                </style>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+</body>
+</html>

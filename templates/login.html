@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>Log In</title>
+    </head>
+    <body>
+        <form action = "{{ url_for('loginComplete') }}" method="POST">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="ccccapassword">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password" aria-describedby="safepswd">
+                        <small id="safepswd" class="form-text text-muted">Make sure this password is safe!</small>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </body>
+</html>

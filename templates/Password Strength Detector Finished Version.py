@@ -14,33 +14,18 @@ while Testing:
         ifupper = g.isupper()
         iflower = g.islower()
         ifnumeric = g.isnumeric()
-        print('Debug: checked first letter in string')
         if ifupper:
             Uppercase = True
-            print('Debug: letter is upper')
             tester = tester[1:]
-            print('Debug: now checking ', tester)
         elif iflower:
             Lowercase = True
-            print('Debug: letter is lower')
             tester = tester[1:]
-            print('Debug: now checking ', tester)
         elif ifnumeric:
             Number = True
-            print('Debug: number detected')
-            tester = tester[1:]
-            print('Debug: now checking ', tester)
-        elif g == ' ':
-            print("Debug: space detected")
-            tester = tester[1:]
-            Testing = False
-        elif g == '!' or '@' or '#' or '$':
-            print('Debug: symbol detected')
             tester = tester[1:]
         if len(tester) == 0:
             Testing = False
 if len(Password) >= 6:
-    print("Debug: Your password has more than 5 letters")
     Length = True
 if Lowercase:
     Strength += 1
