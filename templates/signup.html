@@ -12,24 +12,56 @@
                 var i=0;
                 var pswd = 0;
                 var character='';
+                var Upper = false;
+                var Lower = false;
+                var Number = false;
+                var Length = false;
+                var Strength = false;
+
+                if (password.length >= 5) {
+                    var Length = true;
+                };
                 while (i < password.length){
                     character = password.charAt(i);
-                    if (!isNaN(character * 1)){
-                        alert('character is numeric');
-                        var pswd = pswd + 1;
-                        var hasnonumber = false;
-                    } else {
-                        if (character == character.toUpperCase()) {
-                            alert ('upper case true');
-                            var pswd = pswd + 1;
-                        }
+
+                    if (!isNaN(character * 1)) {
+                        var Number = true;
+                    };
+                    if (character == character.toUpperCase()) {
+                        var Upper = true;
+                    };
+                    if (character == character.toLowerCase()) {
+                        var Lower = true;
+                    };
+
+                    // if (!isNaN(character * 1)){
+                    //     alert('character is numeric');
+                    //     var pswd = pswd + 1;
+                        // var hasnonumber = false;
+                    // } else {
+                    //     if (character == character.toUpperCase()) {
+                    //         alert ('upper case true');
+                    //         var pswd = pswd + 1;
+                    //     }
                         // if (character == character.toLowerCase()){
                         //     alert ('lower case true');
                         // }
-                    }
+                    // }
                     i++;
                 }
-            alert(` ${pswd} `)
+                if (Number == true) {
+                    Strength++;
+                };
+                if (Upper == true) {
+                    Strength++;
+                };
+                if (Lower == true) {
+                    Strength++;
+                };
+                if (Length == true) {
+                    Strength++;
+                };
+                alert(` ${Strength} `);
             };
         });
     </script>
