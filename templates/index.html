@@ -13,5 +13,14 @@
         <form action = "{{ url_for('login') }}" method="POST">
             <button class=btn btn-primary>Log In</button>
         </form>
+        <form action = "{{ url_for('logout') }}" method="POST">
+            <button class=btn btn-primary>Log Out</button>
+        </form>
+        <form action = "{{ url_for('child') }}" method="POST">
+            <button class=btn btn-primary>Log Out</button>
+        </form>
+        <p>
+            {{ message }}
+        </p>
     </body>
 </html>
