@@ -6,6 +6,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import sqlalchemy.exc
 import logging
 from flask_session import Session
+from flask_socketio import SocketIO
+
 
 app = Flask(__name__)
 
@@ -18,6 +20,14 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 app.secret_key = "very secret oh yes no one will ever guess this"
 
+socketio = SocketIO(app)
+socketio.run(app)
+
+@socketio.on('disconnect')
+def on_disconnect():
+    global loginCheck
+    loginCheck=False
+    logging.error("AAAAAAAAAAAAAAAAA")
 
 @app.route('/')
 def index():
@@ -95,6 +105,10 @@ def loginComplete():
 @app.route("/child", methods=["POST"])
 def child():
     return render_template("child.html")
+
+@app.route("/child/complete", methods=["POST"])
+def childComplete():
+    return render_template("success.html", message="You successfully registered a child!")
 
 
 

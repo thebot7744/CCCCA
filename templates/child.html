@@ -7,27 +7,26 @@
         <title>Child Registration</title>
     </head>
     <body>
-        <form action="{{ url_for('childComplete')  }}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="childfirstname">Child First Name</label>
-                        <input type="text" class="form-control" name="childfirstname" placeholder="First Name">
-                    </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="childlastname">Child Last Name</label>
-                        <input type="text" class="form-control" name="childlastname" placeholder="Last Name">
-                    </div>
+        <form action="{{ url_for('childComplete')  }}" method="POST">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="childfirstname">Child First Name</label>
+                    <input type="text" class="form-control" name="childfirstname" placeholder="First Name">
                 </div>
-                <div class="row">
+            <div class="row">
                     <div class="form-group col-6">
-                        <label for="grade">Grade</label>
-                        <input type="text" class="form-control" name="grade" placeholder="Grade">
-                    </div>
+                    <label for="childlastname">Child Last Name</label>
+                    <input type="text" class="form-control" name="childlastname" placeholder="Last Name">
                 </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="grade">Grade</label>
+                    <input type="text" class="form-control" name="grade" placeholder="Grade">
+                </div>
+            </div>
                 <!--MAKE SURE TO DO DATE OF BIRTH LATER !!!!!!!!!!!!-->
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </body>
