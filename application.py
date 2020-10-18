@@ -27,7 +27,6 @@ socketio.run(app)
 def on_disconnect():
     global loginCheck
     loginCheck=False
-    logging.error("AAAAAAAAAAAAAAAAA")
 
 @app.route('/')
 def index():
@@ -41,7 +40,7 @@ def index():
         message = "You are signed in as " + email
 
 
-    return render_template('index.html', message=message)
+    return render_template('index.html', message=message, loginCheck=loginCheck)
 
 @app.route('/logout', methods=["POST"])
 def logout():
@@ -92,11 +91,9 @@ def loginComplete():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    checkEmail = db.execute("SELECT * FROM AccountInfo WHERE email = :email", {"email": email}).fetchone()
-    checkPassword = db.execute("SELECT * FROM AccountInfo WHERE password = :password", {"password": password}).fetchone()
-    
+    check = db.execute("SELECT email, password FROM AccountInfo WHERE email = :email AND password = :password", {"email": email, "password": password}).fetchall()
 
-    if checkEmail != None and checkPassword != None:
+    if checkEmail != None:
         session['email'] = email
         return render_template("success.html", message="You successfully logged in!")
     else:
@@ -108,17 +105,19 @@ def child():
 
 @app.route("/child/complete", methods=["POST"])
 def childComplete():
-    return render_template("success.html", message="You successfully registered a child!")
+    parentemail = session["email"]
+    childfirstname = request.form.get("childfirstname")
+    childlastname = request.form.get('childlastname')
+    grade = request.form.get("grade")
 
-
-
-        
-
-
-
-
+    data = [parentemail, childfirstname, childlastname, grade]
+    for i in data:
+        if i == "":
+            return render_template("error.html", message="Make sure to fill in all empty fields.")
+    logging.error(data)
+    db.execute("INSERT INTO ChildInfo (parentemail, childfirstname, childlastname, grade) VALUES (:parentemail, :childfirstname, :childlastname, :grade)",
+    {"parentemail": parentemail, "childfirstname": childfirstname, "childlastname": childlastname, "grade": grade})
+    db.commit()
     
 
-
-
-
+    return render_template("success.html", message="You successfully registered a child!")

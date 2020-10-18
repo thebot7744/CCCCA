@@ -7,18 +7,21 @@
         <title>CCCCA</title>
     </head>
     <body>
-        <form action = "{{ url_for('signup') }}" method="POST">
-            <button class=btn btn-primary>Sign Up</button>
-        </form>
-        <form action = "{{ url_for('login') }}" method="POST">
-            <button class=btn btn-primary>Log In</button>
-        </form>
+        {% if loginCheck is false %}
+            <form action = "{{ url_for('signup') }}" method="POST">
+                <button class=btn btn-primary>Sign Up</button>
+            </form>
+            <form action = "{{ url_for('login') }}" method="POST">
+                <button class=btn btn-primary>Log In</button>
+            </form>
+        {% else %}
         <form action = "{{ url_for('logout') }}" method="POST">
             <button class=btn btn-primary>Log Out</button>
         </form>
         <form action = "{{ url_for('child') }}" method="POST">
             <button class=btn btn-primary>Child Registration</button>
         </form>
+        {% endif %}
         <p>
             {{ message }}
         </p>
