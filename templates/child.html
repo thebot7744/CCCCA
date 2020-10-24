@@ -1,33 +1,86 @@
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <title>Child Registration</title>
-    </head>
-    <body>
-        <form action="{{ url_for('childComplete')  }}" method="POST">
+    <title>Child Registration</title>
+</head>
+<body>
+    <h1 style="color:blue; text-align:center">Child Registration</h1>
+    <form action = "{{ url_for('signupComplete') }}" method="POST">
+        <div class="card-body">
             <div class="row">
                 <div class="form-group col-6">
-                    <label for="childfirstname">Child First Name</label>
-                    <input type="text" class="form-control" name="childfirstname" placeholder="First Name">
+                    <label for="first">Login Account</label>
+                    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Login Account">
                 </div>
-            <div class="row">
-                    <div class="form-group col-6">
-                    <label for="childlastname">Child Last Name</label>
-                    <input type="text" class="form-control" name="childlastname" placeholder="Last Name">
+
+                <div class="form-group col-6">
+                    <label for="last">Master Password</label>
+                    <input type="password" name="password"class="form-control" placeholder="Password" aria-describedby="nameuser">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-6">
-                    <label for="grade">Grade</label>
-                    <input type="text" class="form-control" name="grade" placeholder="Grade">
+                    <label for="first">First Name</label>
+                    <input type="text" class="form-control" name="first" aria-describedby="emailHelp" placeholder="First Name">
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="last">Last Name</label>
+                    <input type="text" name="last"class="form-control" placeholder="Last Name" aria-describedby="nameuser">
                 </div>
             </div>
-                <!--MAKE SURE TO DO DATE OF BIRTH LATER !!!!!!!!!!!!-->
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="first">Chinese Name</label>
+                    <input type="text" class="form-control" name="chinese_name" aria-describedby="emailHelp" placeholder="Chinese Name">
+                </div>
+                <div class="form-group col-6">
+                    <input list="gender" placeholder="Gender" name="gender">
+                        <datalist id="gender">
+                            <option value="Male">
+                            <option value="Female">
+                        </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="form-group col-6">
+                    <input list="category" placeholder="Category" name="category">
+                        <datalist id="category">
+                            <option value="Father">
+                            <option value="Mother">
+                            <option value="Guardian">
+                            <option value="Child">
+                            <option value="Independent">
+                            <option value="Volunteer">
+                        </datalist>
+                </div>
+            </div>
+            #Date of Birth HERE!!!!!!!!
+             <div class="row">
+                <div class="form-group col-6">
+                    <label for="first">Contact Number</label>
+                    <input type="number" class="form-control" name="phone_number" aria-describedby="emailHelp" placeholder="Phone Number">
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="last">Email</label>
+                    <input type="email" name="email"class="form-control" placeholder="Mailbox" aria-describedby="nameuser">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-    </body>
+                <style>
+                    label {
+                    color:blue;
+                    }
+                    body {
+                    background-color:#a4e3e2;
+                    }
+                </style>
+    </form>
+
+</body>
 </html>
