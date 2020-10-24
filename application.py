@@ -34,13 +34,16 @@ def index():
     if session.get('email') is None:
         message = "You are not signed in."
         loginCheck = False
+        children = None
     else:
         email = session['email']
         loginCheck = True
         message = "You are signed in as " + email
+        parentId=session["sid"]
+        children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": parentId}).fetchall()
 
 
-    return render_template('index.html', message=message, loginCheck=loginCheck)
+    return render_template('index.html', message=message, children=children, loginCheck=loginCheck)
 
 @app.route('/logout', methods=["POST"])
 def logout():
@@ -49,8 +52,6 @@ def logout():
 
 @app.route('/signup', methods=["POST"])
 def signup():
-    if loginCheck=="True":
-        return render_template("error.html", message="You are logged in. Please sign out to continue.")
 
     return render_template("signup.html")
 
@@ -78,6 +79,8 @@ def signupComplete():
         return render_template('error.html', message='Your email address or username is already in use.')
     db.commit()
     session['email'] = email
+    sessionId = db.execute("SELECT id FROM AccountInfo WHERE email = :email", {"email": email}).fetchone
+    session["sid"] = sessionId
     return render_template("success.html", message="You successfully signed up!")
     
 
@@ -91,10 +94,12 @@ def loginComplete():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    check = db.execute("SELECT email, password FROM AccountInfo WHERE email = :email AND password = :password", {"email": email, "password": password}).fetchall()
+    check = db.execute("SELECT id, email, password FROM AccountInfo WHERE email = :email AND password = :password", {"email": email, "password": password}).fetchall()
 
-    if checkEmail != None:
+    if check != None:
         session['email'] = email
+        session["sid"] = check[0][0]
+        logging.error(check)
         return render_template("success.html", message="You successfully logged in!")
     else:
         return render_template('error.html', message="Invalid Login Credentials")
@@ -105,18 +110,20 @@ def child():
 
 @app.route("/child/complete", methods=["POST"])
 def childComplete():
-    parentemail = session["email"]
     childfirstname = request.form.get("childfirstname")
     childlastname = request.form.get('childlastname')
     grade = request.form.get("grade")
+    parentId = session["sid"]
+    logging.error(parentId)
 
-    data = [parentemail, childfirstname, childlastname, grade]
+    data = [childfirstname, childlastname, grade]
     for i in data:
         if i == "":
             return render_template("error.html", message="Make sure to fill in all empty fields.")
+
     logging.error(data)
-    db.execute("INSERT INTO ChildInfo (parentemail, childfirstname, childlastname, grade) VALUES (:parentemail, :childfirstname, :childlastname, :grade)",
-    {"parentemail": parentemail, "childfirstname": childfirstname, "childlastname": childlastname, "grade": grade})
+    db.execute("INSERT INTO ChildInfo (childfirstname, childlastname, grade, parentId) VALUES (:childfirstname, :childlastname, :grade, :parentId)",
+    {"childfirstname": childfirstname, "childlastname": childlastname, "grade": grade, "parentId": parentId})
     db.commit()
     
 

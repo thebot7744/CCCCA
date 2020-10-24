@@ -25,5 +25,10 @@
         <p>
             {{ message }}
         </p>
+        <ul>
+            {% for i in children %}
+              <li>{{ i|join(' ') }}</li>
+            {% endfor %}  
+            </ul>
     </body>
 </html>
