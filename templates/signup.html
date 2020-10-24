@@ -16,37 +16,22 @@
                 var Lower = false;
                 var Number = false;
                 var Length = false;
-                var Strength = false;
-
+                var Strength = 0;
                 if (password.length >= 5) {
                     var Length = true;
                 };
                 while (i < password.length){
                     character = password.charAt(i);
-
-                    if (!isNaN(character * 1)) {
+                    if (character.toLowerCase() == character.toUpperCase()) {
                         var Number = true;
                     };
-                    if (character == character.toUpperCase()) {
+
+                    if (character == character.toUpperCase() && Number == false) {
                         var Upper = true;
                     };
-                    if (character == character.toLowerCase()) {
+                    if (character == character.toLowerCase() && Number == false) {
                         var Lower = true;
                     };
-
-                    // if (!isNaN(character * 1)){
-                    //     alert('character is numeric');
-                    //     var pswd = pswd + 1;
-                        // var hasnonumber = false;
-                    // } else {
-                    //     if (character == character.toUpperCase()) {
-                    //         alert ('upper case true');
-                    //         var pswd = pswd + 1;
-                    //     }
-                        // if (character == character.toLowerCase()){
-                        //     alert ('lower case true');
-                        // }
-                    // }
                     i++;
                 }
                 if (Number == true) {
@@ -61,7 +46,13 @@
                 if (Length == true) {
                     Strength++;
                 };
-                alert(` ${Strength} `);
+                if (Strength <= 3) {
+                    document.querySelector('#pswdyeet').innerHTML = 'Your Password Strength: ' + Strength + '. Your password must consist of 1 uppercase letter, 1 lowercase letter, 1 number and have 5 or more characters.';
+                    document.getElementById('buttono').disabled = true;
+                } else {
+                    document.querySelector('#pswdyeet').innerHTML = 'That is a safe password!  c:';
+                    document.getElementById('buttono').disabled = false;
+                };
             };
         });
     </script>
@@ -97,7 +88,7 @@
                 <div class="form-group col-6">
                     <label for="ccccapassword">Password</label>
                     <input id='password' type="password" class="form-control" name="password" placeholder="Password" aria-describedby="safepswd">
-                    <small id="safepswd" class="form-text text-muted">Make sure this password is safe!</small>
+                    <small id="pswdyeet" class="form-text text-muted">Your password must consist of 1 uppercase letter, 1 lowercase letter, 1 number and have 5 or more characters.</small>
                 </div>
                 <div class="form-group col-6">
                     <label for="ccccapasswordconfirm">Password</label>
@@ -106,7 +97,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id='buttono'type="submit" class="btn btn-primary" disabled>Submit</button>
         </div>
     </form>
 
