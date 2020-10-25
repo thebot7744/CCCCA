@@ -27,8 +27,12 @@
         </p>
         <ul>
             {% for i in children %}
-              <li>{{ i|join(' ') }}</li>
-            {% endfor %}  
-            </ul>
+                {% if i is not none %}
+                    <li>{{ i|join(' ') }}</li>
+                {% else %}
+                    none
+                {% endif %}
+            {% endfor %}
+        </ul>
     </body>
 </html>

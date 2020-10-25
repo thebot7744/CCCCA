@@ -34,7 +34,7 @@ def index():
     if session.get('email') is None:
         message = "You are not signed in."
         loginCheck = False
-        children = None
+        children = []
     else:
         email = session['email']
         loginCheck = True
