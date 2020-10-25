@@ -8,6 +8,8 @@ import logging
 from flask_session import Session
 from flask_socketio import SocketIO
 
+FORMAT =  '%(filename)s:%(funcName)s():L%(lineno)d %(message)s'
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -39,7 +41,9 @@ def index():
         email = session['email']
         loginCheck = True
         message = "You are signed in as " + email
-        parentId=session["sid"]
+        logging.debug(message)
+        parentId=session["sid"][0]
+        logging.debug(parentId)
         children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": parentId}).fetchall()
 
 
