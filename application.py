@@ -79,7 +79,7 @@ def signupComplete():
         return render_template('error.html', message='Your email address or username is already in use.')
     db.commit()
     session['email'] = email
-    sessionId = db.execute("SELECT id FROM AccountInfo WHERE email = :email", {"email": email}).fetchone
+    sessionId = db.execute("SELECT id FROM AccountInfo WHERE email = :email", {"email": email}).fetchone()
     session["sid"] = sessionId
     return render_template("success.html", message="You successfully signed up!")
     
