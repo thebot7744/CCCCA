@@ -18,13 +18,26 @@
         <form action = "{{ url_for('logout') }}" method="POST">
             <button class=btn btn-primary>Log Out</button>
         </form>
-        <form action = "{{ url_for('child') }}" method="POST">
-            <button class=btn btn-primary>Child Registration</button>
-        </form>
+            {% if teacher == 0 %}
+            <form action = "{{ url_for('child') }}" method="POST">
+                <button class=btn btn-primary>Child Registration</button>
+            </form>
+            {% else %}
+            <form>
+                <button class=btn btn-primary>Create a Class</button>
+            </form>
+            {% endif %}
         {% endif %}
         <p>
             {{ message }}
         </p>
+        <div>
+            {% if teacher == 1 %}
+                <p>You are a teacher.</p>
+            {% else %}
+                <p>You are not a teacher.</p>
+            {% endif %}
+        </div>
         <ul>
             {% for i in children %}
                 {% if i is not none %}

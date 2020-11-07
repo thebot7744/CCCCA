@@ -41,13 +41,13 @@ def index():
         email = session['email']
         loginCheck = True
         message = "You are signed in as " + email
-        logging.debug(message)
-        parentId=session["sid"][0]
-        logging.debug(parentId)
-        children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": parentId}).fetchall()
+        sid=session["sid"][0]
+        
+        children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": sid}).fetchall()
+        teacher = db.execute("SELECT teacher FROM AccountInfo WHERE id = :sid", {"sid": sid}).fetchone()[0]
 
 
-    return render_template('index.html', message=message, children=children, loginCheck=loginCheck)
+    return render_template('index.html', message=message, children=children, loginCheck=loginCheck, teacher=teacher)
 
 @app.route('/logout', methods=["POST"])
 def logout():
@@ -67,6 +67,7 @@ def signupComplete():
     lastname = request.form.get("lastname")
     password = request.form.get("password")
     pswdconfirm = request.form.get('passwordconfirm')
+    teacher = request.form.get('teacherSignUp')
 
     data = [email, username, firstname, lastname, password, pswdconfirm]
     for i in data:
@@ -77,8 +78,8 @@ def signupComplete():
         return render_template('error.html', message='Please make sure to confirm your password.')
 
     try: 
-        db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password) VALUES (:email, :username, :firstname, :lastname, :password)",
-        {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password})
+        db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password, teacher) VALUES (:email, :username, :firstname, :lastname, :password, :teacher)",
+        {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password, "teacher": teacher})
     except sqlalchemy.exc.IntegrityError:
         return render_template('error.html', message='Your email address or username is already in use.')
     db.commit()

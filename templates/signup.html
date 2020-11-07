@@ -62,6 +62,13 @@
     <form action = "{{ url_for('signupComplete') }}" method="POST">
         <div class="card-body">
             <div class="row">
+                <p>I am a:</p>
+                <select name="teacherSignUp">
+                    <option value="1">Teacher</option>
+                    <option value="0">Parent</option>
+                </select>
+            </div>
+            <div class="row">
                 <div class="form-group col-6">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
