@@ -23,21 +23,17 @@
                 <button class=btn btn-primary>Child Registration</button>
             </form>
             {% else %}
-            <form>
+            <form action = "{{ url_for('classCreate') }}" method="POST">
                 <button class=btn btn-primary>Create a Class</button>
             </form>
             {% endif %}
         {% endif %}
         <p>
             {{ message }}
-        </p>
-        <div>
-            {% if teacher == 1 %}
-                <p>You are a teacher.</p>
-            {% else %}
-                <p>You are not a teacher.</p>
-            {% endif %}
-        </div>
+        </p>   
+        {% if teacher == 1 %}
+            <p>Teacher account.</p>
+        {% endif %}
         <ul>
             {% for i in children %}
                 {% if i is not none %}

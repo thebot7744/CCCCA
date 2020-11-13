@@ -7,6 +7,9 @@
         <title>Log In</title>
     </head>
     <body>
+        {% for message in get_flashed_messages() %}
+            <div>{{ message }}</div>
+        {% endfor %}
         <form action = "{{ url_for('loginComplete') }}" method="POST">
             <div class="card-body">
                 <div class="row">

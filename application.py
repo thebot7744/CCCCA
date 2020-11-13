@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, flash, redirect
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import sqlalchemy.exc
@@ -37,14 +37,18 @@ def index():
         message = "You are not signed in."
         loginCheck = False
         children = []
+        teacher=0
     else:
         email = session['email']
         loginCheck = True
         message = "You are signed in as " + email
-        sid=session["sid"][0]
+        sid=session["sid"]
         
+        teacher=session["teacher"]
+        teacher=1
+
         children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": sid}).fetchall()
-        teacher = db.execute("SELECT teacher FROM AccountInfo WHERE id = :sid", {"sid": sid}).fetchone()[0]
+        
 
 
     return render_template('index.html', message=message, children=children, loginCheck=loginCheck, teacher=teacher)
@@ -72,21 +76,25 @@ def signupComplete():
     data = [email, username, firstname, lastname, password, pswdconfirm]
     for i in data:
         if i == "":
-            return render_template("error.html", message="Make sure to fill in all empty fields.")
+            flash("Make sure to fill in all empty fields.")
+            return render_template("signup.html")
 
     if password != pswdconfirm:
-        return render_template('error.html', message='Please make sure to confirm your password.')
+        flash("Make sure to confirm your password.")
+        return render_template('signup.html')
 
     try: 
         db.execute("INSERT INTO AccountInfo (email, username, firstname, lastname, password, teacher) VALUES (:email, :username, :firstname, :lastname, :password, :teacher)",
         {"email": email, "username": username, "firstname": firstname, "lastname": lastname, "password": password, "teacher": teacher})
     except sqlalchemy.exc.IntegrityError:
-        return render_template('error.html', message='Your email address or username is already in use.')
+        flash("Your email address or username is already in use.")
+        return render_template('signup.html')
     db.commit()
     session['email'] = email
     sessionId = db.execute("SELECT id FROM AccountInfo WHERE email = :email", {"email": email}).fetchone()
     session["sid"] = sessionId
-    return render_template("success.html", message="You successfully signed up!")
+    session["teacher"] = teacher[0]
+    return redirect("/")
     
 
 @app.route("/login", methods=["POST"])
@@ -99,15 +107,17 @@ def loginComplete():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    check = db.execute("SELECT id, email, password FROM AccountInfo WHERE email = :email AND password = :password", {"email": email, "password": password}).fetchall()
-
-    if check != None:
+    check = db.execute("SELECT id, email, password, teacher FROM AccountInfo WHERE email = :email AND password = :password", {"email": email, "password": password}).fetchall()
+    logging.debug(check)
+    if check != []:
         session['email'] = email
         session["sid"] = check[0][0]
-        logging.error(check)
-        return render_template("success.html", message="You successfully logged in!")
+        session["teacher"] = check[0][3]
+        logging.debug(session["teacher"])
+        return redirect("/")
     else:
-        return render_template('error.html', message="Invalid Login Credentials")
+        flash("Invalid login credentials.")
+        return render_template('login.html')
 
 @app.route("/child", methods=["POST"])
 def child():
@@ -124,7 +134,9 @@ def childComplete():
     data = [childfirstname, childlastname, grade]
     for i in data:
         if i == "":
-            return render_template("error.html", message="Make sure to fill in all empty fields.")
+            flash("Make sure to fill in all empty fields.")
+            return render_template("child.html")
+        
 
     logging.error(data)
     db.execute("INSERT INTO ChildInfo (childfirstname, childlastname, grade, parentId) VALUES (:childfirstname, :childlastname, :grade, :parentId)",
@@ -132,4 +144,31 @@ def childComplete():
     db.commit()
     
 
-    return render_template("success.html", message="You successfully registered a child!")
+    return render_template("success.html", message="You successfully registered a child")
+
+@app.route("/classCreate", methods=["POST"])
+def classCreate():
+    return render_template("classCreate.html")
+
+@app.route("/classCreate/complete", methods=["POST"])
+def classCreateComplete():
+    className = request.form.get("className")
+    classNum = request.form.get("classNum")
+    classGrade = request.form.get("classGrade")
+    classDesc = request.form.get("classDesc")
+    teacherId = session["sid"]
+
+    data = [className, classNum, classGrade, classDesc]
+
+    for i in data:
+        if i=="":
+            flash("Make sure to fill in all empty fields.")
+            return render_template("classCreate.html")
+
+    logging.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", className, classNum, classGrade, classDesc)
+
+    db.execute("INSERT INTO ClassInfo (className, classNum, classGrade, classDesc, teacherId) VALUES (:className, :classNum, :classGrade, :classDesc, :teacherId)", 
+    {"className": className, "classNum": classNum, "classGrade": classGrade, "classDesc": classDesc, "teacherId": teacherId})
+    db.commit()
+
+    return render_template("success.html", message="You successfully created a class.")
