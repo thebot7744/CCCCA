@@ -28,27 +28,28 @@ socketio.run(app)
 @socketio.on('disconnect')
 def on_disconnect():
     global loginCheck
-    loginCheck=False
+    loginCheck = False
 
 @app.route('/')
 def index():
     global loginCheck
     if session.get('email') is None:
-        message = "You are not signed in."
+        message = "You are not logged in."
         loginCheck = False
         children = []
-        teacher=0
+        teacher = 0
     else:
         email = session['email']
         loginCheck = True
-        message = "You are signed in as " + email
+        message = "You are logged in as " + email
+
+        logging.debug(session)
+
         sid=session["sid"]
-        
+
         teacher=session["teacher"]
 
         children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": sid}).fetchall()
-        
-
 
     return render_template('index.html', message=message, children=children, loginCheck=loginCheck, teacher=teacher)
 
