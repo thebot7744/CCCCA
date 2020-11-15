@@ -45,7 +45,6 @@ def index():
         sid=session["sid"]
         
         teacher=session["teacher"]
-        teacher=1
 
         children = db.execute("SELECT childfirstname, childlastname FROM ChildInfo WHERE parentId = :parentId", {"parentId": sid}).fetchall()
         
