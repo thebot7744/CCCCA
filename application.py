@@ -172,3 +172,8 @@ def classCreateComplete():
     db.commit()
 
     return render_template("success.html", message="You successfully created a class.")
+
+@app.route("/classes", methods=["POST", "GET"])
+def classes():
+    classes = db.execute("SELECT * FROM ClassInfo")
+    return render_template("classes.html", classes=classes)
