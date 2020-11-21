@@ -30,8 +30,9 @@
                         </ul>
                     </div>
                 </nav>
-        {% else %}
 
+            </ul>
+        {% else %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="#">CCCCA</a>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -46,6 +47,9 @@
 
                             <form action = "{{ url_for('child') }}" method="POST">
                                 <button class='btn btn-link'>Child Registration</button>
+                            </form>
+                            <form action = "{{ url_for('classes') }}" method="GET">
+                                <button class=btn btn-link>View Classes</button>
                             </form>
 
                             {% else %}
@@ -67,8 +71,7 @@
                         </ul>
                     </div>
                 </nav>
-        {% endif %}
-
+            {% endif %}
         <ul>
             {% for i in children %}
 
@@ -85,3 +88,4 @@
         </ul>
     </body>
 </html>
+
