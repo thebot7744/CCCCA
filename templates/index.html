@@ -22,6 +22,9 @@
             <form action = "{{ url_for('child') }}" method="POST">
                 <button class=btn btn-primary>Child Registration</button>
             </form>
+            <form action = "{{ url_for('classes') }}" method="GET">
+                <button class=btn btn-primary>View Classes</button>
+            </form>
             {% else %}
             <form action = "{{ url_for('classCreate') }}" method="POST">
                 <button class=btn btn-primary>Create a Class</button>
