@@ -9,3 +9,6 @@ Wait that means we must download all the flask, sql, and other stuff before we c
 to.
 
 Also im very smort yes yes yes
+
+#Banana
+ eat dah bananana
