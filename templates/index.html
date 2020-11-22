@@ -21,9 +21,6 @@
                             <form class="nav-item" action = "{{ url_for('login') }}" method="POST">
                                 <button class='btn btn-link'>Log In</button>
                             </form>
-                            <form class="nav-item" action = "{{ url_for('logout') }}" method="POST">
-                                <button class='btn btn-link' disabled>Log Out</button>
-                            </form>
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="#">{{ message }}</a>
                             </li>
@@ -48,8 +45,8 @@
                             <form action = "{{ url_for('child') }}" method="POST">
                                 <button class='btn btn-link'>Child Registration</button>
                             </form>
-                            <form action = "{{ url_for('classes') }}" method="GET">
-                                <button class=btn btn-link>View Classes</button>
+                            <form action = "{{ url_for('classes') }}" method="POST">
+                                <button class='btn btn-link'>View Classes</button>
                             </form>
 
                             {% else %}
@@ -88,3 +85,4 @@
         </ul>
     </body>
 </html>
+

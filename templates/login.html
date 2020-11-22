@@ -7,6 +7,19 @@
         <title>Log In</title>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">CCCCA</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <form class="nav-item" action = "{{ url_for('index') }}">
+                        <button class='btn btn-link'>Home</button>
+                    </form>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">You are not logged in.</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         {% for message in get_flashed_messages() %}
             <div>{{ message }}</div>
         {% endfor %}
