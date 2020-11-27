@@ -1,90 +1,15 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <title>CCCCA</title>
-    </head>
-    <body>
-        {% if loginCheck is false %}
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">CCCCA</a>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <form class="nav-item" action = "{{ url_for('index') }}">
-                                <button class='btn btn-link'>Home</button>
-                            </form>
-                            <form class="nav-item" action = "{{ url_for('signup') }}" method="POST">
-                                <button class='btn btn-link'>Register Account</button>
-                            </form>
-                            <form class="nav-item" action = "{{ url_for('login') }}" method="POST">
-                                <button class='btn btn-link'>Log In</button>
-                            </form>
-                            <form class="nav-item" action = "{{ url_for('logout') }}" method="POST">
-                                <button class='btn btn-link' disabled>Log Out</button>
-                            </form>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">{{ message }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-            </ul>
-        {% else %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">CCCCA</a>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <form class="nav-item" action = "{{ url_for('index') }}">
-                                <button class='btn btn-link'>Home</button>
-                            </form>
-                            <form class="nav-item" action = "{{ url_for('logout') }}" method="POST">
-                                <button class='btn btn-link'>Log Out</button>
-                            </form>
-                            {% if teacher == 0 %}
-
-                            <form action = "{{ url_for('child') }}" method="POST">
-                                <button class='btn btn-link'>Child Registration</button>
-                            </form>
-                            <form action = "{{ url_for('classes') }}" method="GET">
-                                <button class=btn btn-primar>View Classes</button>
-                            </form>
-
-                            {% else %}
-
-                            <form action = "{{ url_for('classCreate') }}" method="POST">
-                                <button class='btn btn-link'>Create a Class</button>
-                            </form>
-
-                            {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">{{ message }}</a>
-                            </li>
-
-                            {% if teacher == 1 %}
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">Teacher Account</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block body %}
+    <ul>
+        {% for i in children %}
+            {% if i is not none %}
+                <li>{{ i|join(' ') }}</li>
+            {% else %}
+                none
             {% endif %}
-        <ul>
-            {% for i in children %}
-
-                {% if i is not none %}
-
-                    <li>{{ i|join(' ') }}</li>
-                {% else %}
-
-                    none
-
-                {% endif %}
-
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+        {% endfor %}
+    </ul>
+{% endblock %}

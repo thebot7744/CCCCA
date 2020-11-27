@@ -45,7 +45,7 @@ def index():
 
         logging.debug(session)
 
-        sid=session["sid"]
+        sid=session["sid"][0]
 
         teacher=session["teacher"]
 
