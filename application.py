@@ -142,9 +142,13 @@ def childComplete():
     db.execute("INSERT INTO ChildInfo (childfirstname, childlastname, grade, parentId) VALUES (:childfirstname, :childlastname, :grade, :parentId)",
     {"childfirstname": childfirstname, "childlastname": childlastname, "grade": grade, "parentId": parentId})
     db.commit()
-    
 
     return render_template("success.html", message="You successfully registered a child")
+
+@app.route("/child/data", methods=["POST","GET"])
+def childData():
+    childdata = db.execute("SELECT * FROM ChildInfo")
+    return render_template("childdata.html", childdata=childdata)
 
 @app.route("/classCreate", methods=["POST"])
 def classCreate():

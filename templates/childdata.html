@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}
-Classes
+Child Data
 {% endblock %}
 {% block style %}
     <style>
@@ -11,13 +11,11 @@ Classes
     </style>
 {% endblock %}
 {% block body %}
-    {% for class in classes %}
+    {% for child in childdata %}
         <div id=class>
-            {{ child.className }}
+            {{ child.childfirstname }} {{ child.childlastname }}
             <div>
-                Max children: {{ class.classNum }}
-                Grade: {{ class.classGrade }}
-                Description: {{ class.classDesc }}
+                Grade: {{ child.grade }}
             </div>
         </div>
     {% endfor %}

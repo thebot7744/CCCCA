@@ -3,13 +3,5 @@
 Home
 {% endblock %}
 {% block body %}
-    <ul>
-        {% for i in children %}
-            {% if i is not none %}
-                <li>{{ i|join(' ') }}</li>
-            {% else %}
-                none
-            {% endif %}
-        {% endfor %}
-    </ul>
+    <p>Welcome to the CCCCA website! :D</p>
 {% endblock %}
