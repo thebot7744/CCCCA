@@ -1,29 +1,8 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Child Registration</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="why-you-click-here-boi">CCCCA</a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <form class="nav-item" action = "{{ url_for('index') }}">
-                    <button class='btn btn-link'>Home</button>
-                </form>
-                <form class="nav-item" action = "{{ url_for('logout') }}" method="POST">
-                    <button class='btn btn-link'>Log Out</button>
-                </form>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">{{ message }}</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+{% extends "layout.html" %}
+{% block title %}
+Child Registration
+{% endblock %}
+{% block body %}
     <h1 style="color:blue; text-align:center">Child Registration</h1>
     {% for message in get_flashed_messages() %}
     <div>{{ message }}</div>
@@ -44,12 +23,12 @@
             <div class="row">
                 <div class="form-group col-6">
                     <label for="first">First Name</label>
-                    <input type="text" class="form-control" name="first" aria-describedby="emailHelp" placeholder="First Name">
+                    <input type="text" class="form-control" name="childfirstname" aria-describedby="emailHelp" placeholder="First Name">
                 </div>
 
                 <div class="form-group col-6">
                     <label for="last">Last Name</label>
-                    <input type="text" name="last"class="form-control" placeholder="Last Name" aria-describedby="nameuser">
+                    <input type="text" name="childlastname" class="form-control" placeholder="Last Name" aria-describedby="nameuser">
                 </div>
             </div>
             <div class="row">
@@ -65,7 +44,7 @@
                         </datalist>
                 </div>
             </div>
-            <div>
+            <div class="row">
                 <div class="form-group col-6">
                     <input list="category" placeholder="Category" name="category">
                         <datalist id="category">
@@ -77,9 +56,12 @@
                             <option value="Volunteer">
                         </datalist>
                 </div>
+                <div class="form-group col-6">
+                    <label for="first">Grade</label>
+                    <input type="number" class="form-control" name="grade" placeholder="Grade">
+                </div>
             </div>
-            #Date of Birth HERE!!!!!!!!
-             <div class="row">
+            <div class="row">
                 <div class="form-group col-6">
                     <label for="first">Contact Number</label>
                     <input type="number" class="form-control" name="phone_number" aria-describedby="emailHelp" placeholder="Phone Number">
@@ -99,7 +81,8 @@
                     background-color:#a4e3e2;
                     }
                 </style>
+        </div>
     </form>
+{% endblock %}
 
-</body>
-</html>
+

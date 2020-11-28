@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Sign Up</title>
+{% extends "layout.html" %}
+{% block title %}
+Sign Up
+{% endblock %}
+{% block javascript %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#password').onchange = () => {
@@ -56,18 +54,9 @@
             };
         });
     </script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">CCCCA</a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <form class="nav-item" action = "{{ url_for('index') }}">
-                    <button class='btn btn-link'>Home</button>
-                </form>
-            </ul>
-        </div>
-    </nav>
+{% endblock %}
+{% block body %}
+>>>>>>> 23703f0e3c68bac5f80b698b69b6f4547f1838c6
     {% for message in get_flashed_messages() %}
         <div>{{ message }}</div>
     {% endfor %}
@@ -119,6 +108,4 @@
             <button id='buttono'type="submit" class="btn btn-primary" disabled>Submit</button>
         </div>
     </form>
-
-</body>
-</html>
+{% endblock %}

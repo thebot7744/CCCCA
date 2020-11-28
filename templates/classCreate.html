@@ -1,53 +1,31 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <title>Child Registration</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">CCCCA</a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <form class="nav-item" action = "{{ url_for('index') }}">
-                        <button class='btn btn-link'>Home</button>
-                    </form>
-                    <form class="nav-item" action = "{{ url_for('logout') }}" method="POST">
-                        <button class='btn btn-link'>Log Out</button>
-                    </form>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Teacher Account</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        {% for message in get_flashed_messages() %}
+{% extends "layout.html" %}
+{% block title %}
+Create a Class
+{% endblock %}
+{% block body %}
+    {% for message in get_flashed_messages() %}
         <div>{{ message }}</div>
-        {% endfor %}
-        <form action = "{{ url_for('classCreateComplete') }}" method="POST">
-            <div>
-                <label for="className">Class Name:</label>
-                <input type="text" name="className">
-            </div>
-            
-            <div>
-                <label for="classNum">Maximum Students:</label>
-                <input type="number" name="classNum">
-            </div>
+    {% endfor %}
+    <form action = "{{ url_for('classCreateComplete') }}" method="POST">
+        <div>
+            <label for="className">Class Name:</label>
+            <input type="text" name="className">
+        </div>        
+        <div>
+            <label for="classNum">Maximum Students:</label>
+            <input type="number" name="classNum">
+        </div>
+        <div>
+            <label for="classGrade">Target Grade:</label>
+            <input type="text" name="classGrade">
+        </div>
 
-            <div>
-                <label for="classGrade">Target Grade:</label>
-                <input type="text" name="classGrade">
-            </div>
+        <div>
+            <label for="classDesc">Description:</label>
+            <input type="text" name="classDesc">
+            <small class="form-text text-muted">A short description of the class</small>
+        </div>
+        <button id='buttono'type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
 
-            <div>
-                <label for="classDesc">Description:</label>
-                <input type="text" name="classDesc">
-                <small class="form-text text-muted">A short description of the class</small>
-            </div>
-            <button id='buttono'type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </body>
-</html>
